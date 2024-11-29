@@ -18,7 +18,7 @@ const lendByEmail = async (req, res) => {
   } catch (error) {
     res.status(404).json({
       status: "failed",
-      message: err.message,
+      message: error.message,
     });
   }
 };
@@ -33,7 +33,7 @@ const withdrawByEmail = async (req, res) => {
   } catch (error) {
     res.status(404).json({
       status: "failed",
-      message: err.message,
+      message: error.message,
     });
   }
 };
@@ -49,7 +49,7 @@ const getLendingHistoryByEmail = async (req, res) => {
   } catch (error) {
     res.status(404).json({
       status: "failed",
-      message: err.message,
+      message: error.message,
     });
   }
 };

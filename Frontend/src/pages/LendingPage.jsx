@@ -17,6 +17,7 @@ import axios from "axios";
 import { backendDomain } from "../constant/domain";
 import RenderModal from "../components/Models/modal";
 import { formatEther } from "ethers";
+import { depositEther, withdrawEther } from "../blockchain/scripts/Lending";
 
 const assets = [
   {
@@ -151,6 +152,7 @@ export default function LendingPage() {
       }
     );
 
+    await depositEther(signer, amount);
     window.location.reload();
   };
 
@@ -174,10 +176,12 @@ export default function LendingPage() {
         },
       }
     );
+
+    await depositEther(signer, Number(borrowAmount) + Number(collateralAmount));
     window.location.reload();
   };
 
-  const withdraw = async (id) => {
+  const withdraw = async (id, amount) => {
     const token = localStorage.getItem("token");
     await axios.post(
       `${backendDomain}/lending/withdraw`,
@@ -189,10 +193,11 @@ export default function LendingPage() {
       }
     );
 
+    await withdrawEther(signer, amount);
     window.location.reload();
   };
 
-  const repay = async (id) => {
+  const repay = async (id, borrowAmount) => {
     const token = localStorage.getItem("token");
     await axios.post(
       `${backendDomain}/borrowing/repay`,
@@ -204,10 +209,11 @@ export default function LendingPage() {
       }
     );
 
+    await depositEther(signer, borrowAmount);
     window.location.reload();
   };
 
-  const withdrawCollateral = async (borrowId, lendingId) => {
+  const withdrawCollateral = async (borrowId, lendingId, amount) => {
     const token = localStorage.getItem("token");
     await axios.post(
       `${backendDomain}/borrowing/withdraw`,
@@ -219,6 +225,7 @@ export default function LendingPage() {
       }
     );
 
+    await withdrawEther(signer, amount)
     window.location.reload();
   };
 
@@ -592,7 +599,7 @@ export default function LendingPage() {
                             <button
                               className="px-4 py-2 rounded-lg bg-gradient-to-r from-indigo-600 to-purple-600
                                    text-white hover:shadow-lg hover:shadow-indigo-500/20 transition-all"
-                              onClick={() => withdraw(item._id)}
+                              onClick={() => withdraw(item._id, item.amount)}
                             >
                               Withdraw
                             </button>
@@ -626,7 +633,7 @@ export default function LendingPage() {
                           {item.borrowAmount == 0 ? (
                             <button
                               onClick={() =>
-                                withdrawCollateral(item._id, item.lendingId)
+                                withdrawCollateral(item._id, item.lendingId, item.borrowAmount * 0.1)
                               }
                               className="px-4 py-2 rounded-lg bg-gradient-to-r from-indigo-600 to-purple-600
                                text-white hover:shadow-lg hover:shadow-indigo-500/20 transition-all"
@@ -635,7 +642,7 @@ export default function LendingPage() {
                             </button>
                           ) : (
                             <button
-                              onClick={() => repay(item._id)}
+                              onClick={() => repay(item._id, item.borrowAmount)}
                               className="px-4 py-2 rounded-lg bg-gradient-to-r from-indigo-600 to-purple-600
                                text-white hover:shadow-lg hover:shadow-indigo-500/20 transition-all"
                             >
