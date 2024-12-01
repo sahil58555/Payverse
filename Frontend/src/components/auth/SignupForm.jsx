@@ -24,13 +24,13 @@ function SignupForm() {
   const navigate = useNavigate();
 
   const onSubmit = async (data) => {
-    // const address = await deployContract(
-    //   signer,
-    //   data.tokenName,
-    //   data.tokenSymbol,
-    //   ethers.parseUnits(data.initialSupply, 18)
-    // );
-    // console.log("Contract Address: ", address);
+    const address = await deployContract(
+      signer,
+      data.tokenName,
+      data.tokenSymbol,
+      ethers.parseUnits(data.initialSupply, 18)
+    );
+    console.log("Contract Address: ", address);
 
     const registerData = {
       email: data.email,
