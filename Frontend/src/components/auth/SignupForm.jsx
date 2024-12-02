@@ -133,7 +133,7 @@ function SignupForm() {
       />
 
       <FormInput
-        label="Token Name"
+        label="ESOP/RSU Token Name"
         type="text"
         placeholder="Enter token name"
         error={errors.tokenName}
@@ -147,7 +147,7 @@ function SignupForm() {
       />
 
       <FormInput
-        label="Token Symbol"
+        label="ESOP/RSU Token Symbol"
         type="text"
         placeholder="Enter token symbol"
         error={errors.tokenSymbol}
