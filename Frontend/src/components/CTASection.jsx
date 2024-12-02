@@ -77,7 +77,7 @@ const CTASection = () => {
                 </span>
               </h2>
               <p className="text-xl text-gray-400 mb-8">
-                Join thousands of forward-thinking businesses that have already transformed their payroll management with PayzAll.
+                Join thousands of forward-thinking businesses that have already transformed their payroll management with PayZoll.
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4">
