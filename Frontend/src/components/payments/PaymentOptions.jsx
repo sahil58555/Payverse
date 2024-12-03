@@ -115,15 +115,15 @@ export default function PaymentOptions() {
         <div className="flex items-center justify-between">
           <div>
             <div className="text-sm text-gray-400">Next Payroll Date</div>
-            <div className="font-semibold">January 31, 2024</div>
+            <div className="font-semibold">December 31, 2024</div>
           </div>
           <div>
             <div className="text-sm text-gray-400">Processing Time</div>
-            <div className="font-semibold">~2 hours</div>
+            <div className="font-semibold">~30 seconds</div>
           </div>
           <div>
             <div className="text-sm text-gray-400">Gas Fees (Est.)</div>
-            <div className="font-semibold text-green-400">$12.50</div>
+            <div className="font-semibold text-green-400">$0.01</div>
           </div>
         </div>
       </div>

@@ -37,7 +37,7 @@ export default function Sidebar({
         <div className="p-6 border-b border-gray-800">
           <Link to="/employer/dashboard" className="block">
             <h1 className="text-xl font-bold bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">
-              Payverse Inc.
+              PayZoll
             </h1>
           </Link>
         </div>

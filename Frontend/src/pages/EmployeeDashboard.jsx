@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import {useNavigate } from "react-router-dom";
 import {
   Bell,
+  LogOut,
   Wallet,
   DollarSign,
   ArrowUpRight,
@@ -27,6 +29,12 @@ export default function EmployeeDashboard() {
   const [employeeInfo, setEmployeeInfo] = useState(undefined);
   const [employeeTokenInfo, setEmployeeTokenInfo] = useState(undefined);
   const [employeeHistoryInfo, setEmployeeHostoryInfo] = useState(undefined);
+
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    localStorage.setItem("token", null);
+    navigate("/auth?mode=login");
+  };
 
   const getEmployeeInfo = async () => {
     const token = localStorage.getItem("token");
@@ -143,6 +151,16 @@ export default function EmployeeDashboard() {
 
               {/* Actions */}
               <div className="flex items-center space-x-4">
+                
+                {/*LogOut*/}
+                <button
+                  className="px-4 py-2 rounded-lg bg-gradient-to-r from-indigo-600 to-purple-600 
+                  text-white hover:shadow-lg hover:shadow-indigo-500/20 transition-all"
+                  onClick={handleLogout}
+                >
+                <span>LogOut</span>
+                </button>
+
                 {/* Notifications */}
                 <div className="relative">
                   <button
