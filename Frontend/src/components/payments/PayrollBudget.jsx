@@ -52,7 +52,7 @@ export default function PayrollBudget({ totalSalary }) {
           </div>
           <div className="bg-crypto-card/50 rounded-lg p-3">
             <div className="text-gray-400">Surplus</div>
-            <div className="font-semibold text-green-400">
+            <div className="font-semibold text-green-400 overflow-x-auto">
               {balance - totalSalary} ETH
             </div>
           </div>
@@ -88,7 +88,7 @@ export default function PayrollBudget({ totalSalary }) {
 
       {/* Connected Wallet */}
       <div className="mt-6 p-4 bg-crypto-dark/50 rounded-xl border border-gray-800">
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between overflow-x-auto">
           <div>
             <div className="text-sm text-gray-400">Connected Wallet</div>
             <div className="font-mono text-sm mt-1">{account}</div>
