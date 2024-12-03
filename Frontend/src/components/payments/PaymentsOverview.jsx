@@ -19,14 +19,6 @@ export default function PaymentsOverview({ employees, totalSalary, totalSalaryPa
       color: "from-green-600 to-emerald-600",
     },
     {
-      title: "Pending Payments",
-      value: "$47,178",
-      change: "-2%",
-      isNegative: true,
-      icon: Clock,
-      color: "from-orange-600 to-red-600",
-    },
-    {
       title: "Payment Success Rate",
       value: "98.5%",
       change: "+1.5%",
@@ -35,7 +27,7 @@ export default function PaymentsOverview({ employees, totalSalary, totalSalaryPa
     },
   ];
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       {stats.map((stat, index) => (
         <motion.div
           key={index}

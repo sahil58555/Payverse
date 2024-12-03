@@ -6,7 +6,6 @@ import ESOPOverview from "../components/esop/ESOPOverview";
 import TokenManagement from "../components/esop/TokenManagement";
 import TokenPrediction from "../components/esop/TokenPrediction";
 import EmployeeSimulation from "../components/esop/EmployeeSimulation";
-import ComplianceSection from "../components/esop/ComplianceSection";
 import ESOPAnalytics from "../components/esop/ESOPAnalytics";
 import IssueTokenModal from "../components/esop/IssueTokenModal";
 import axios from "axios";
@@ -117,16 +116,11 @@ export default function ESOPPage() {
           {/* Main Grid Layout */}
           <div className="grid grid-cols-12 gap-6">
             {/* Token Management */}
-            <div className="col-span-12 lg:col-span-8">
+            <div className="col-span-12 lg:col-span-12">
               <TokenManagement
                 tokensInfo={tokensInfo}
                 companyInfo={companyInfo}
               />
-            </div>
-
-            {/* Compliance Section */}
-            <div className="col-span-12 lg:col-span-4">
-              <ComplianceSection />
             </div>
 
             {/* Token Prediction */}
