@@ -5,6 +5,7 @@ import { Mail, Lock, Eye, EyeOff, Building2, User } from "lucide-react";
 import FormInput from "./FormInput";
 import axios from "axios";
 import { backendDomain } from "../../constant/domain";
+import {Loader} from "../Loader/Loader";
 
 function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);

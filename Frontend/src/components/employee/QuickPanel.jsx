@@ -6,7 +6,6 @@ import {
   PiggyBank,
   Landmark,
   Award,
-  Plus,
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
@@ -48,17 +47,10 @@ export default function QuickPanel({ isWalletConnected }) {
       color: "from-indigo-600 to-purple-600",
       action: () => console.log("Claim Esop"),
     },
-    {
-      icon: Plus,
-      label: "Add Funds",
-      description: "Top up your wallet",
-      color: "from-violet-600 to-indigo-600",
-      action: () => console.log("Plus"),
-    },
   ];
 
   return (
-    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
       {actions.map((action, index) => (
         <motion.button
           key={action.label}

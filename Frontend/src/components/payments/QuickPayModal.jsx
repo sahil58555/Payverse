@@ -76,11 +76,11 @@ export default function QuickPayModal({
               <div className="grid grid-cols-3 gap-4 text-sm">
                 <div className="bg-crypto-card/50 rounded-lg p-3">
                   <div className="text-gray-400">Gas Fee (Est.)</div>
-                  <div className="font-semibold text-green-400">$12.50</div>
+                  <div className="font-semibold text-green-400">$0.01</div>
                 </div>
                 <div className="bg-crypto-card/50 rounded-lg p-3">
                   <div className="text-gray-400">Processing Time</div>
-                  <div className="font-semibold">~2 hours</div>
+                  <div className="font-semibold">~30 seconds</div>
                 </div>
                 <div className="bg-crypto-card/50 rounded-lg p-3">
                   <div className="text-gray-400">Network</div>
