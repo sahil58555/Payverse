@@ -5,7 +5,6 @@ import { Mail, Lock, Eye, EyeOff, Building2, User } from "lucide-react";
 import FormInput from "./FormInput";
 import axios from "axios";
 import { backendDomain } from "../../constant/domain";
-import {Loader} from "../Loader/Loader";
 
 function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
@@ -33,9 +32,11 @@ function LoginForm() {
     localStorage.setItem("token", response.data.token);
 
     if (userType === "employee") {
-      navigate("/employee/dashboard");
+      localStorage.setItem("redirect", "/employee/dashboard");
+      navigate("/phone-auth-okto");
     } else {
-      navigate("/employer/dashboard");
+      localStorage.setItem("redirect", "/employer/dashboard");
+      navigate("/phone-auth-okto");
     }
   };
 

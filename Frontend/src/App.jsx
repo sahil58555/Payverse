@@ -10,6 +10,10 @@ import ESOPPage from "./pages/ESOPPage";
 import SettingsPage from "./pages/SettingsPage";
 import { Web3Provider } from "./context/useWeb3";
 import LendingPage from "./pages/LendingPage";
+import { OktoProvider, BuildType } from "okto-sdk-react";
+import OTPPage from "./components/Okto/otp";
+import Stake from "./components/Coinbase/Stake";
+const OKTO_CLIENT_API_KEY = "bebe6b3d-3f40-4b51-8315-d74db21b0acb";
 
 export default function App() {
   const EmployerRoutes = () => (
@@ -23,6 +27,21 @@ export default function App() {
         <Route path="/employer/esops" element={<ESOPPage />} />
         <Route path="/employer/settings" element={<SettingsPage />} />
         <Route path="/lending" element={<LendingPage />} />
+        <Route
+          path="/phone-auth-okto"
+          element={
+            <OktoProvider
+              apiKey={OKTO_CLIENT_API_KEY}
+              buildType={BuildType.SANDBOX}
+            >
+              <OTPPage />
+            </OktoProvider>
+          }
+        />
+        <Route
+          path="/stake"
+          element={<Stake></Stake>}
+        />
       </Routes>
     </Web3Provider>
   );
