@@ -187,7 +187,7 @@ export default function AddEmployeeModal({ isOpen, onClose, onAddEmployee }) {
                     </span>
                     <input
                       type="number"
-                      step="0.01"
+                      step="0.000000000000001"
                       name="monthlySalary"
                       className="w-full bg-crypto-dark border border-gray-800 rounded-xl py-2 pl-10 pr-4
                                focus:outline-none focus:border-indigo-500 transition-colors"

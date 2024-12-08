@@ -36,7 +36,7 @@ function SignupForm() {
       email: data.email,
       password: data.confirmPassword,
       name: data.companyName,
-      contractAddress: "12345678",
+      contractAddress: address,
       tokenName: data.tokenName,
       tokenSymbol: data.tokenSymbol,
       tokenCount: data.initialSupply
