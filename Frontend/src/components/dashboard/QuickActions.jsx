@@ -36,9 +36,9 @@ export default function QuickActions({ isWalletConnected }) {
     },
     {
       icon: Landmark,
-      label: "Borrowing",
+      label: "Stake",
       color: "from-pink-600 to-purple-600",
-      onClick: () => navigate("/lending"),
+      onClick: () => navigate("/stake"),
     },
     {
       icon: Users,

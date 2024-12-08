@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { ArrowLeft, PiggyBank, Wallet, TrendingUp } from "lucide-react";
 import axios from "axios";
 import { backendDomain } from "../../constant/domain";
@@ -36,6 +37,7 @@ export default function Stake() {
   const [activeTab, setActiveTab] = useState("all");
   const [stakeBalance, setStakeBalance] = useState(0);
   const [unstakeBalance, setUnstakeBalance] = useState(0);
+  const navigate = useNavigate();
 
   const fetchStakeBalance = async () => {
     const response = await axios.get(`${backendDomain}/stake/stake-balance`);
@@ -89,7 +91,10 @@ export default function Stake() {
 
   return (
     <div className="min-h-screen bg-crypto-dark text-white p-4">
-      <button className="flex items-center space-x-2 text-gray-400 hover:text-white transition-colors mb-4">
+      <button
+        className="flex items-center space-x-2 text-gray-400 hover:text-white transition-colors mb-4"
+        onClick={() => navigate("/")}
+      >
         <ArrowLeft className="w-5 h-5" />
         <span>Back</span>
       </button>
