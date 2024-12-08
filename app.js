@@ -18,6 +18,7 @@ const tokenRouter = require("./routes/tokenrouter");
 const employeeRouter = require("./routes/employeeRouter");
 const lendingRouter = require("./routes/lendingRouter");
 const borrowingRouter = require("./routes/borrowingRouter");
+const stakeRouter = require("./routes/stakeRouter");
 
 app.use("/login", loginRouter);
 app.use("/register", registerRouter);
@@ -49,6 +50,7 @@ app.use(
 
 app.use("/lending", authRouter.isLoggedIn, lendingRouter);
 app.use("/borrowing", authRouter.isLoggedIn, borrowingRouter);
+app.use("/stake", stakeRouter);
 //  404 handler middleware
 app.use((req, res, next) => {
   res.status(404).json({ error: "Route not found" });

@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
-import { ArrowLeft, PiggyBank, Wallet, TrendingUp } from 'lucide-react';
-
+import React, { useState, useEffect } from "react";
+import { ArrowLeft, PiggyBank, Wallet, TrendingUp } from "lucide-react";
+import axios from "axios";
+import { backendDomain } from "../../constant/domain";
 const sampleStakingHistory = [
   {
     id: 1,
@@ -8,7 +9,7 @@ const sampleStakingHistory = [
     amount: 1.5,
     type: "stake",
     status: true,
-    apy: "5.2%"
+    apy: "5.2%",
   },
   {
     id: 2,
@@ -16,7 +17,7 @@ const sampleStakingHistory = [
     amount: 0.8,
     type: "unstake",
     status: false,
-    apy: "5.2%"
+    apy: "5.2%",
   },
   {
     id: 3,
@@ -24,8 +25,8 @@ const sampleStakingHistory = [
     amount: 0.3,
     type: "claim",
     status: true,
-    apy: "5.2%"
-  }
+    apy: "5.2%",
+  },
 ];
 
 export default function Stake() {
@@ -33,22 +34,58 @@ export default function Stake() {
   const [unstakeAmount, setUnstakeAmount] = useState("");
   const [claimAmount, setClaimAmount] = useState("");
   const [activeTab, setActiveTab] = useState("all");
+  const [stakeBalance, setStakeBalance] = useState(0);
+  const [unstakeBalance, setUnstakeBalance] = useState(0);
 
-  const handleStake = () => {
-    console.log("Staking:", stakeAmount, "ETH");
+  const fetchStakeBalance = async () => {
+    const response = await axios.get(`${backendDomain}/stake/stake-balance`);
+
+    setStakeBalance(response.data.balance);
   };
 
-  const handleUnstake = () => {
-    console.log("Unstaking:", unstakeAmount, "ETH");
+  const fetchUnstakeBalance = async () => {
+    const response = await axios.get(`${backendDomain}/stake/unstake-balance`);
+
+    setUnstakeBalance(response.data.balance);
+  };
+
+  const stakeOperation = async () => {
+    const response = await axios.post(`${backendDomain}/stake/stake-amount`, {
+      amount: stakeAmount,
+    });
+
+    console.log(response.data);
+  };
+
+  const unstakeOperation = async () => {
+    const response = await axios.post(`${backendDomain}/stake/unstake-amount`, {
+      amount: unstakeAmount,
+    });
+
+    console.log(response.data);
+  };
+
+  const handleStake = async () => {
+    await stakeOperation();
+    window.location.reload();
+  };
+
+  const handleUnstake = async () => {
+    await unstakeOperation();
+    window.location.reload();
   };
 
   const handleClaim = () => {
     console.log("Claiming:", claimAmount, "ETH");
   };
 
-  const totalStaked = 4.5;
   const totalRewards = 0.23;
   const averageAPY = "5.2%";
+
+  useEffect(() => {
+    fetchStakeBalance();
+    fetchUnstakeBalance();
+  }, []);
 
   return (
     <div className="min-h-screen bg-crypto-dark text-white p-4">
@@ -75,18 +112,18 @@ export default function Stake() {
           <div className="bg-crypto-dark rounded-xl p-4 border border-gray-800">
             <div className="flex items-center space-x-3 mb-2">
               <PiggyBank className="w-5 h-5 text-indigo-400" />
-              <span className="text-gray-400">Total ETH Staked</span>
+              <span className="text-gray-400">Available Staked ETH</span>
             </div>
-            <div className="text-2xl font-bold">{totalStaked} ETH</div>
+            <div className="text-2xl font-bold">{stakeBalance} ETH</div>
             <div className="text-green-400 text-sm">+15.3% this month</div>
           </div>
 
           <div className="bg-crypto-dark rounded-xl p-4 border border-gray-800">
             <div className="flex items-center space-x-3 mb-2">
               <Wallet className="w-5 h-5 text-purple-400" />
-              <span className="text-gray-400">Total Rewards Earned</span>
+              <span className="text-gray-400">Available Unstaked ETH</span>
             </div>
-            <div className="text-2xl font-bold">{totalRewards} ETH</div>
+            <div className="text-2xl font-bold">{unstakeBalance} ETH</div>
             <div className="text-green-400 text-sm">+2.8% this week</div>
           </div>
 
@@ -210,43 +247,68 @@ export default function Stake() {
             <table className="w-full">
               <thead className="bg-crypto-dark/90 backdrop-blur-sm">
                 <tr>
-                  <th className="px-4 py-3 text-left text-sm font-medium text-gray-400">Date & Time</th>
-                  <th className="px-4 py-3 text-left text-sm font-medium text-gray-400">Type</th>
-                  <th className="px-4 py-3 text-left text-sm font-medium text-gray-400">Amount</th>
-                  <th className="px-4 py-3 text-left text-sm font-medium text-gray-400">APY</th>
-                  <th className="px-4 py-3 text-left text-sm font-medium text-gray-400">Status</th>
+                  <th className="px-4 py-3 text-left text-sm font-medium text-gray-400">
+                    Date & Time
+                  </th>
+                  <th className="px-4 py-3 text-left text-sm font-medium text-gray-400">
+                    Type
+                  </th>
+                  <th className="px-4 py-3 text-left text-sm font-medium text-gray-400">
+                    Amount
+                  </th>
+                  <th className="px-4 py-3 text-left text-sm font-medium text-gray-400">
+                    APY
+                  </th>
+                  <th className="px-4 py-3 text-left text-sm font-medium text-gray-400">
+                    Status
+                  </th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-800">
                 {sampleStakingHistory
-                  .filter(item => 
-                    activeTab === "all" || 
-                    (activeTab === "stakes" && item.type === "stake") ||
-                    (activeTab === "unstakes" && item.type === "unstake") ||
-                    (activeTab === "claims" && item.type === "claim")
+                  .filter(
+                    (item) =>
+                      activeTab === "all" ||
+                      (activeTab === "stakes" && item.type === "stake") ||
+                      (activeTab === "unstakes" && item.type === "unstake") ||
+                      (activeTab === "claims" && item.type === "claim")
                   )
                   .map((item) => (
-                    <tr key={item.id} className="group hover:bg-crypto-dark/30 transition-colors">
-                      <td className="px-4 py-3 whitespace-nowrap text-gray-400">{item.date}</td>
+                    <tr
+                      key={item.id}
+                      className="group hover:bg-crypto-dark/30 transition-colors"
+                    >
+                      <td className="px-4 py-3 whitespace-nowrap text-gray-400">
+                        {item.date}
+                      </td>
                       <td className="px-4 py-3 whitespace-nowrap">
-                        <span className={
-                          item.type === "stake" 
-                            ? "text-green-400" 
-                            : item.type === "unstake"
-                            ? "text-red-400"
-                            : "text-yellow-400"
-                        }>
-                          {item.type.charAt(0).toUpperCase() + item.type.slice(1)}
+                        <span
+                          className={
+                            item.type === "stake"
+                              ? "text-green-400"
+                              : item.type === "unstake"
+                              ? "text-red-400"
+                              : "text-yellow-400"
+                          }
+                        >
+                          {item.type.charAt(0).toUpperCase() +
+                            item.type.slice(1)}
                         </span>
                       </td>
-                      <td className="px-4 py-3 whitespace-nowrap">{item.amount} ETH</td>
-                      <td className="px-4 py-3 whitespace-nowrap text-indigo-400">{item.apy}</td>
                       <td className="px-4 py-3 whitespace-nowrap">
-                        <span className={`px-2 py-1 rounded-full text-xs ${
-                          item.status 
-                            ? "bg-green-500/10 text-green-400" 
-                            : "bg-gray-500/10 text-gray-400"
-                        }`}>
+                        {item.amount} ETH
+                      </td>
+                      <td className="px-4 py-3 whitespace-nowrap text-indigo-400">
+                        {item.apy}
+                      </td>
+                      <td className="px-4 py-3 whitespace-nowrap">
+                        <span
+                          className={`px-2 py-1 rounded-full text-xs ${
+                            item.status
+                              ? "bg-green-500/10 text-green-400"
+                              : "bg-gray-500/10 text-gray-400"
+                          }`}
+                        >
                           {item.status ? "Completed" : "Pending"}
                         </span>
                       </td>
