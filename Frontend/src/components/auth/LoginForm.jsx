@@ -32,11 +32,9 @@ function LoginForm() {
     localStorage.setItem("token", response.data.token);
 
     if (userType === "employee") {
-      localStorage.setItem("redirect", "/employee/dashboard");
-      navigate("/phone-auth-okto");
+      navigate("/employee/dashboard");
     } else {
-      localStorage.setItem("redirect", "/employer/dashboard");
-      navigate("/phone-auth-okto");
+      navigate("/employer/dashboard");
     }
   };
 
