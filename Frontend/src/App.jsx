@@ -28,17 +28,6 @@ export default function App() {
         <Route path="/employer/settings" element={<SettingsPage />} />
         <Route path="/lending" element={<LendingPage />} />
         <Route
-          path="/phone-auth-okto"
-          element={
-            <OktoProvider
-              apiKey={OKTO_CLIENT_API_KEY}
-              buildType={BuildType.SANDBOX}
-            >
-              <OTPPage />
-            </OktoProvider>
-          }
-        />
-        <Route
           path="/stake"
           element={<Stake></Stake>}
         />
